@@ -5,6 +5,9 @@ startButton.addEventListener('click', startQuiz)
 instructGone.addEventListener('click', startQuiz)
 const questionEl = document.getElementById('question')
 const answerButtons = document.getElementById('answer-buttons')
+const countdownEl = document.getElementById('countdown')
+let timeLeft = 150;
+let timerId;
 
 //starts quiz
 let startQuestions=""
@@ -14,7 +17,16 @@ function startQuiz(){
     startButton.classList.add('hide')
     instructGone.classList.add('hide')
     showQuestionsEl.classList.remove('hide')
+    timerId = setInterval(timerFunc , 1000)
+    countdownEl.textContent = `${timeLeft} seconds`
    setNextQuestion()
+}
+function timerFunc(){
+    timeLeft--;
+        countdownEl.textContent = `${timeLeft} seconds`
+        if (timeLeft <= 0){
+            gameOver()
+        }
 }
 function setNextQuestion(){
     var currentQuestion = questions[index]
@@ -40,24 +52,30 @@ var resultEl = document.getElementById("result-container")
             resultEl.removeAttribute ("class");
         setTimeout(function() {
             resultEl.setAttribute ("class" , "hide");
-        }, 2000)
+        }, 1000)
     index++
+
+    if( index === questions.length || timeLeft < 0){
+        gameOver()
+    }
+
     setNextQuestion()
 }
+    function gameOver(){
 
+    }
 const questions =[
 {
     question: "what is 2 + 2?",
     answers: ['4','44', '33', '2'], 
     correct: "4"
 },
-// {
-//     question: "What is 3 + 3?",
-//     answers:[text: '6', correct: true},
-//         {text: '100', correct: false }
-//     ]
-// }
-
+{
+    question: "What is 3 + 3?",
+    answers:['6', '8', '3', '17'],
+    correct: "6"
+}
 ]
+
 //timer
 //game over section
