@@ -62,7 +62,13 @@ var resultEl = document.getElementById("result-container")
     setNextQuestion()
 }
     function gameOver(){
+        clearInterval(timerId)
 
+        let endContainerEl = document.getElementById('end-container')
+            endContainerEl.removeAttribute('class')
+        let finalEl = document.getElementById('your-score');
+            finalEl.textContent = timeLeft;
+            showQuestionsEl.setAttribute('class' , 'hide')
     }
 const questions =[
 {
