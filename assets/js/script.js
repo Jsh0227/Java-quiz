@@ -8,11 +8,18 @@ const answerButtons = document.getElementById('answer-buttons')
 const countdownEl = document.getElementById('countdown')
 const submitEl = document.getElementById('submit')
 const initialsEl = document.getElementById('intials')
+const highScoreEl= document.getElementById('high-score-container')
+const goBackButton = document.getElementById('go-back')
+const clearHighScoreButton = document.getElementById('clear-high-score')
+clearHighScoreButton.addEventListener('click', restartQuiz)
+goBackButton.addEventListener('click', restartQuiz)
+submitEl.addEventListener('click', showHighScore)
 
 var timeLeft = 60;
 //starts quiz
 let startQuestions = ""
 var index = 0
+
 function startQuiz() {
     startButton.classList.add('hide')
     instructGone.classList.add('hide')
@@ -83,18 +90,38 @@ function gameOver() {
 
 submitEl.onclick = storePlayerScore;
 
+//Keeps the score for the user after game is over.
 function storePlayerScore() {
     let initials = initialsEl.value.trim();
+//intials are required
     if (initials !== "") {
+        //retrieving array from local storage--converts string to array
         let highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
         let playerScore = {
             score: timeLeft,
             initials: initials,
         };
+        //Saving information inside of the array.  
         highScores.push(playerScore);
+        //Saving the array in local storage as a string data type
         localStorage.setItem("high-scores", JSON.stringify(highScores))
         //window.location.href = "highScores.html"
     }
+}
+//Shows high score
+function showHighScore(){
+    let endContainerEl = document.getElementById('end-container')
+    endContainerEl.setAttribute('class','hide')
+    highScoreEl.removeAttribute('class')
+}
+
+function restartQuiz(){
+    instructGone.classList.remove('hide')
+    let endContainerEl = document.getElementById('end-container')
+    endContainerEl.setAttribute('class','hide')
+    highScoreEl.setAttribute('class', 'hide')
+    startButton.classList.remove('hide')
+    setNextQuestion()
 }
 
 const questions = [
