@@ -18,7 +18,10 @@ submitEl.addEventListener('click', showHighScore)
 var timeLeft = 60;
 //starts quiz
 let startQuestions = ""
-var index = 0
+var index = 0;
+let highScores = JSON.parse(localStorage.getItem("high-scores"));
+let scoresDatacontainer = document.getElementById('scoresDatacontainer')
+
 
 function startQuiz() {
     startButton.classList.add('hide')
@@ -96,15 +99,14 @@ function storePlayerScore() {
 //intials are required
     if (initials !== "") {
         //retrieving array from local storage--converts string to array
-        let highScores = JSON.parse(localStorage.getItem("high-scores")) || [];
         let playerScore = {
             score: timeLeft,
             initials: initials,
         };
         //Saving information inside of the array.  
-        highScores.push(playerScore);
+        // highScores.push(playerScore);
         //Saving the array in local storage as a string data type
-        localStorage.setItem("high-scores", JSON.stringify(highScores))
+        highScores = localStorage.setItem("high-scores", JSON.stringify(playerScore))
         //window.location.href = "highScores.html"
     }
 }
@@ -113,15 +115,26 @@ function showHighScore(){
     let endContainerEl = document.getElementById('end-container')
     endContainerEl.setAttribute('class','hide')
     highScoreEl.removeAttribute('class')
-}
+    //window.localStorage.getItem(highScores)
+    // let finalScore = JSON.parse(window.localStorage.getItem('highScores'));
+    console.log('final score line 118', highScores);
+    let finalPlayerScore = document.getElementById('finalPlayerScore');
+    let finalPlayerInitials = document.getElementById('finalPlayerInitials');
+        finalPlayerScore.textContent = highScores.score;
+        finalPlayerInitials.textContent = highScores.initials;
+        console.log('finalPlayerScore: ', finalPlayerScore);
+        console.log('finalPlayerInitials: ', finalPlayerInitials);
+        scoresDatacontainer.append(finalPlayerInitials, finalPlayerScore);
 
+    }
+
+   
 function restartQuiz(){
     instructGone.classList.remove('hide')
     let endContainerEl = document.getElementById('end-container')
     endContainerEl.setAttribute('class','hide')
     highScoreEl.setAttribute('class', 'hide')
     startButton.classList.remove('hide')
-    setNextQuestion()
 }
 
 const questions = [
