@@ -32,6 +32,7 @@ function startQuiz() {
 }
 function timerFunc() {
     countdownEl.textContent = `${timeLeft--} seconds`
+    
 }
 
 function setNextQuestion() {
@@ -107,7 +108,6 @@ function storePlayerScore() {
         // highScores.push(playerScore);
         //Saving the array in local storage as a string data type
         highScores = localStorage.setItem("high-scores", JSON.stringify(playerScore))
-        //window.location.href = "highScores.html"
     }
 }
 //Shows high score
@@ -115,17 +115,11 @@ function showHighScore(){
     let endContainerEl = document.getElementById('end-container')
     endContainerEl.setAttribute('class','hide')
     highScoreEl.removeAttribute('class')
-    //window.localStorage.getItem(highScores)
-    // let finalScore = JSON.parse(window.localStorage.getItem('highScores'));
     console.log('final score line 118', highScores);
     let finalPlayerScore = document.getElementById('finalPlayerScore');
-    let finalPlayerInitials = document.getElementById('finalPlayerInitials');
-        finalPlayerScore.textContent = highScores.score;
-        finalPlayerInitials.textContent = highScores.initials;
+        finalPlayerScore.textContent = highScores.initials + " " + highScores.score;
         console.log('finalPlayerScore: ', finalPlayerScore);
-        console.log('finalPlayerInitials: ', finalPlayerInitials);
-        scoresDatacontainer.append(finalPlayerInitials, finalPlayerScore);
-
+        
     }
 
    
@@ -135,20 +129,35 @@ function restartQuiz(){
     endContainerEl.setAttribute('class','hide')
     highScoreEl.setAttribute('class', 'hide')
     startButton.classList.remove('hide')
+    
 }
 
 const questions = [
     {
-        question: "what is 2 + 2?",
-        answers: ['4', '44', '33', '2'],
-        correct: "4"
+        question: "Common used data types do not include?",
+        answers: ['1. strings', '2. booleans', '3. alerts', '4. numbers'],
+        correct: "3. alerts"
     },
     {
-        question: "What is 3 + 3?",
-        answers: ['6', '8', '3', '17'],
-        correct: "6"
+        question: "The condition in an if/else statement is enclosed with ________.",
+        answers: ['1. quotes', '2. curly brackets', '3. parenthesis', '4. square brackets'],
+        correct: "3. parenthesis"
+    },
+    {
+        question: "Arrays in JavaScript can be used to store _______.",
+        answers: ['1. numbers and strings', '2. other arrays', '3. booleans', '4. all of the above'],
+        correct: "4. all of the above"
+    },
+    {
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        answers: ['1. JavaScript', '2. terminal/bash', '3. for loops', '4. console.log'],
+        correct: "4. console.log"
+    },
+    {
+        question: "String values must be enclosed within _______ when being assigned to variables.",
+        answers: ['1. commas', '2. curly brackets', '3. quotes', '4. parathensis'],
+        correct: "3. quotes"
     }
+
 ]
 
-//timer
-//game over section
